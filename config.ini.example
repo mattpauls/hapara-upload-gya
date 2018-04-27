@@ -1,0 +1,12 @@
+; config.ini
+[HAPARA]
+DOMAIN = example.com
+PASSKEY = 12345asdf
+
+[LOCAL_CONFIG]
+CSV_SOURCE = /full/path/to/csvsource.csv
+TMP_FOLDER = /full/path/to/tmpfolder
+
+[GRIZZLY]
+CURRENT_CLASS = 01
+CURRENT_SEMESTER = 1
