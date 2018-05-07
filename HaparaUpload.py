@@ -26,10 +26,11 @@ logging.info('Beginning Hapara Processing: %s' % str(datetime.now()))
 #
 def csvcreator(csvfilename, headers):
     csvfile = os.path.join(os.path.sep, outputfolder, csvfilename)
-    stucsv_out = open(csvfile, 'w', newline='')  # changed from 'wb' to 'w', newline='' for Python3 compatibility
-    stucsv_out.write(headers)
-    stucsv_out.close()
-
+    with open(csvfile, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        logging.info('Wrote headers ' + str(headers))
+        f.close()
 
 def csvreader(filepath):
     r = open(filepath, newline='')
@@ -81,7 +82,8 @@ def haparaRowGen(group, contractclasslist, SchoolEmail, Group, Platoon, currentC
 
 def createStudentHaparaList():
     filename = "HaparaStudents.csv"  # Setup in a temp directory sometime, handle deletion
-    header = "email,class,class,class,class,class,class,class,class,class,class,class"  # \r\n
+    # header = "email,class,class,class,class,class,class,class,class,class,class,class"  # \r\n
+    header = ['email', 'class', 'class', 'class', 'class', 'class', 'class', 'class', 'class', 'class', 'class', 'class']
     print("Creating file in output folder...")
     print(filename)
 
@@ -222,7 +224,7 @@ def main():
     print('Here we go...')
     createStudentHaparaList()
     csvfile = os.path.join(outputfolder, 'HaparaStudents.csv')
-    #HaparaUpload(csvfile)
+    HaparaUpload(csvfile)
     logging.info('End of Hapara Processing: %s' % (str(datetime.now())))
 
 if __name__ == "__main__" :
